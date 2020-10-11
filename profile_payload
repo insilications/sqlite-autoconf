@@ -1,1 +1,1 @@
-make quicktest || :
+make -j1 quicktest || :

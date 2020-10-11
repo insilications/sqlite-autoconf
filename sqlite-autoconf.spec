@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : sqlite-autoconf
 Version  : 3.33.0
-Release  : 93
+Release  : 94
 URL      : file:///insilications/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf-.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf-.tar.gz
 Summary  : SQL database engine
@@ -121,7 +121,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1602458427
+export SOURCE_DATE_EPOCH=1602459286
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -153,7 +153,7 @@ export MAKEFLAGS=%{?_smp_mflags}
 # export CCACHE_NOHASHDIR=1
 # export CCACHE_DIRECT=1
 # export CCACHE_SLOPPINESS=pch_defines,locale,time_macros
-# export CCACHE_DISABLE=1
+export CCACHE_DISABLE=1
 # export CPPFLAGS="-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_MAX_WORKER_THREADS=16 -DSQLITE_DEFAULT_WORKER_THREADS=4 -DSQLITE_DEFAULT_PAGE_SIZE=4096 -DSQLITE_TEMP_STORE=2 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768 -DSQLITE_DEFAULT_SYNCHRONOUS=1 -DSQLITE_DEFAULT_MMAP_SIZE=67108864 -DSQLITE_ENABLE_COLUMN_METADATA"
 ## altflags_pgo end
 ##
@@ -166,8 +166,8 @@ export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
 %reconfigure  --enable-shared --enable-static --enable-static-shell --enable-tcl
-make  %{?_smp_mflags} V=1 VERBOSE=1 
-make %{?_smp_mflags} sqlite3.c V=1 VERBOSE=1
+make %{?_smp_mflags} V=1 VERBOSE=1 
+make sqlite3.c %{?_smp_mflags} V=1 VERBOSE=1
 
 make -j1 quicktest || :
 make clean
@@ -177,8 +177,8 @@ export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
 %reconfigure  --enable-shared --enable-static --enable-static-shell --enable-tcl
-make  %{?_smp_mflags} V=1 VERBOSE=1 
-make %{?_smp_mflags} sqlite3.c V=1 VERBOSE=1
+make %{?_smp_mflags} V=1 VERBOSE=1 
+make sqlite3.c %{?_smp_mflags} V=1 VERBOSE=1
 
 pushd ../build32/
 export CFLAGS="-g -O2 -fuse-linker-plugin -pipe"
@@ -195,12 +195,12 @@ export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
 export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 sed -i '/^AC_INIT.*/a AM_MAINTAINER_MODE([disable])' configure.ac
 %reconfigure  --enable-shared --enable-static --disable-tcl --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
-make  %{?_smp_mflags} V=1 VERBOSE=1 
-make %{?_smp_mflags} sqlite3.c V=1 VERBOSE=1
+make %{?_smp_mflags} V=1 VERBOSE=1 
+make sqlite3.c %{?_smp_mflags} V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1602458427
+export SOURCE_DATE_EPOCH=1602459286
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

@@ -2,6 +2,24 @@
 # This file contains additional build requirements that did not get picked up
 # automatically. One name per line, no whitespace.
 #
+automake
+automake-dev
+gcc-dev32
+gcc-libgcc32
+gcc-libstdc++32
+gettext-bin
+glibc-dev32
+glibc-libc32
+libtool
+libtool-dev
+m4
+ncurses-dev32
+pkg-config-dev
 readline-dev
+readline-dev32
 zlib-dev
 zlib-dev32
+zlib-staticdev
+tcl
+tcl-dev
+tcl-staticdev

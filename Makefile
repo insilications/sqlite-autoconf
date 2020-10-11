@@ -1,5 +1,5 @@
 PKG_NAME := sqlite-autoconf
-URL = https://sqlite.org/2020/sqlite-autoconf-3330000.tar.gz
+URL = https://github.com/insilications/sqlite-clr.git
 ARCHIVES = 
 
 include ../common/Makefile.common

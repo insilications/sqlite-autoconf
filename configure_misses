@@ -1,12 +1,34 @@
-Configure miss: fullfsync
-Configure miss: whether strerror_r returns char *
-Configure miss: editline/readline.h usability
-Configure miss: editline/readline.h presence
-Configure miss: editline/readline.h
-Configure miss: fullfsync
-Configure miss: whether strerror_r returns char *
-Configure miss: editline/readline.h usability
-Configure miss: editline/readline.h presence
-Configure miss: editline/readline.h
-Configure miss: library containing tgetent
+Configure miss: localtime_s
+Configure miss: tclsh8.7
+Configure miss: whether to support shared library linked as release mode or not
+Configure miss: whether to use an in-ram database for temporary tables
 Configure miss: library containing readline
+Configure miss: readline.h usability
+Configure miss: readline.h presence
+Configure miss: readline.h
+Configure miss: /usr/include/readline.h
+Configure miss: whether to support MEMSYS5
+Configure miss: whether to support MEMSYS3
+Configure miss: localtime_s
+Configure miss: tclsh8.7
+Configure miss: whether to support shared library linked as release mode or not
+Configure miss: whether to use an in-ram database for temporary tables
+Configure miss: library containing readline
+Configure miss: readline.h usability
+Configure miss: readline.h presence
+Configure miss: readline.h
+Configure miss: /usr/include/readline.h
+Configure miss: whether to support MEMSYS5
+Configure miss: whether to support MEMSYS3
+Configure miss: localtime_s
+Configure miss: tclsh8.7
+Configure miss: whether to support shared library linked as release mode or not
+Configure miss: whether to use an in-ram database for temporary tables
+Configure miss: library containing readline
+Configure miss: library containing tgetent
+Configure miss: readline.h usability
+Configure miss: readline.h presence
+Configure miss: readline.h
+Configure miss: /usr/include/readline.h
+Configure miss: whether to support MEMSYS5
+Configure miss: whether to support MEMSYS3

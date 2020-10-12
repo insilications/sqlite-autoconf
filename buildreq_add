@@ -23,3 +23,5 @@ zlib-staticdev
 tcl
 tcl-dev
 tcl-staticdev
+valgrind
+valgrind-dev

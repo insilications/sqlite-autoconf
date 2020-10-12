@@ -1,1 +1,1 @@
---enable-shared --enable-static --enable-static-shell --enable-tcl
+--enable-shared --enable-static --enable-static-shell --enable-tcl --enable-memsys5 --enable-rtree

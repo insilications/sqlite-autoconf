@@ -7,7 +7,6 @@ Configure miss: readline.h usability
 Configure miss: readline.h presence
 Configure miss: readline.h
 Configure miss: /usr/include/readline.h
-Configure miss: whether to support MEMSYS5
 Configure miss: whether to support MEMSYS3
 Configure miss: localtime_s
 Configure miss: tclsh8.7
@@ -18,7 +17,6 @@ Configure miss: readline.h usability
 Configure miss: readline.h presence
 Configure miss: readline.h
 Configure miss: /usr/include/readline.h
-Configure miss: whether to support MEMSYS5
 Configure miss: whether to support MEMSYS3
 Configure miss: localtime_s
 Configure miss: tclsh8.7

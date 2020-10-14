@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : sqlite-autoconf
 Version  : 3.33.0
-Release  : 95
+Release  : 96
 URL      : file:///insilications/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf-3.33.0.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf-3.33.0.tar.gz
 Summary  : SQL database engine
@@ -123,11 +123,11 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1602495662
+export SOURCE_DATE_EPOCH=1602689676
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
-export SQLITE_FLAGS="-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_MAX_WORKER_THREADS=16 -DSQLITE_DEFAULT_WORKER_THREADS=4 -DSQLITE_DEFAULT_PAGE_SIZE=4096 -DSQLITE_TEMP_STORE=2 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768 -DSQLITE_DEFAULT_SYNCHRONOUS=1 -DSQLITE_DEFAULT_MMAP_SIZE=67108864 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_THREADSAFE=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_USE_ALLOCA -DSQLITE_ENABLE_MEMSYS5 -DSQLITE_ENABLE_RTREE -DSQLITE_DIRECT_OVERFLOW_READ -DUSE_AMALGAMATION=1"
+export SQLITE_FLAGS="-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_MAX_WORKER_THREADS=16 -DSQLITE_DEFAULT_WORKER_THREADS=4 -DSQLITE_DEFAULT_PAGE_SIZE=4096 -DSQLITE_TEMP_STORE=2 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768 -DSQLITE_DEFAULT_SYNCHRONOUS=1 -DSQLITE_DEFAULT_MMAP_SIZE=67108864 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_THREADSAFE=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_USE_ALLOCA -DSQLITE_ENABLE_MEMSYS5 -DSQLITE_ENABLE_RTREE -DSQLITE_DIRECT_OVERFLOW_READ -DUSE_AMALGAMATION=1"
 
 export PGO_GEN="-fprofile-generate=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo -fprofile-abs-path -fprofile-update=atomic -fprofile-arcs -ftest-coverage --coverage -fprofile-partial-training"
 export CFLAGS_GENERATE="-O3 -march=native -mtune=native -falign-functions=32 -flimit-function-alignment -fno-semantic-interposition -fno-stack-protector -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -mtls-dialect=gnu2 -fno-math-errno -fno-trapping-math -pipe -ffat-lto-objects -fPIC $PGO_GEN $SQLITE_FLAGS"
@@ -215,7 +215,7 @@ make %{?_smp_mflags} V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1602495662
+export SOURCE_DATE_EPOCH=1602689676
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

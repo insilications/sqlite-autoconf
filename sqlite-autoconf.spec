@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : sqlite-autoconf
 Version  : 3.33.0
-Release  : 96
+Release  : 97
 URL      : file:///insilications/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf-3.33.0.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf-3.33.0.tar.gz
 Summary  : SQL database engine
@@ -60,6 +60,8 @@ Requires: sqlite-autoconf-lib = %{version}-%{release}
 Requires: sqlite-autoconf-bin = %{version}-%{release}
 Provides: sqlite-autoconf-devel = %{version}-%{release}
 Requires: sqlite-autoconf = %{version}-%{release}
+Requires: sqlite-autoconf-dev = %{version}-%{release}
+Requires: sqlite-autoconf-dev32 = %{version}-%{release}
 
 %description dev
 dev components for the sqlite-autoconf package.
@@ -71,6 +73,7 @@ Group: Default
 Requires: sqlite-autoconf-lib32 = %{version}-%{release}
 Requires: sqlite-autoconf-bin = %{version}-%{release}
 Requires: sqlite-autoconf-dev = %{version}-%{release}
+Requires: sqlite-autoconf-dev32 = %{version}-%{release}
 
 %description dev32
 dev32 components for the sqlite-autoconf package.
@@ -96,6 +99,7 @@ lib32 components for the sqlite-autoconf package.
 Summary: staticdev components for the sqlite-autoconf package.
 Group: Default
 Requires: sqlite-autoconf-dev = %{version}-%{release}
+Requires: sqlite-autoconf-dev32 = %{version}-%{release}
 
 %description staticdev
 staticdev components for the sqlite-autoconf package.
@@ -104,7 +108,7 @@ staticdev components for the sqlite-autoconf package.
 %package staticdev32
 Summary: staticdev32 components for the sqlite-autoconf package.
 Group: Default
-Requires: sqlite-autoconf-dev = %{version}-%{release}
+Requires: sqlite-autoconf-dev32 = %{version}-%{release}
 
 %description staticdev32
 staticdev32 components for the sqlite-autoconf package.
@@ -123,7 +127,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1602689676
+export SOURCE_DATE_EPOCH=1610600327
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -159,17 +163,14 @@ export MAKEFLAGS=%{?_smp_mflags}
 # export CCACHE_SLOPPINESS=pch_defines,locale,time_macros
 export CCACHE_DISABLE=1
 ## altflags_pgo end
-##
-%global _lto_cflags 1
-##
-sed -i '/^AC_INIT.*/a AM_MAINTAINER_MODE([disable])' configure.ac
+sd --flags mi '^AC_INIT\((.*\n.*\)|.*\))' '$0\nAM_MAINTAINER_MODE([disable])' configure.ac
 export CFLAGS="${CFLAGS_GENERATE}"
 export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
 %reconfigure  --enable-shared --enable-static --enable-static-shell --enable-tcl --enable-memsys5 --enable-rtree
-make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1 
+make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1
 make %{?_smp_mflags} V=1 VERBOSE=1
 
 # make -j1 test || :
@@ -192,13 +193,13 @@ export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
 %reconfigure  --enable-shared --enable-static --enable-static-shell --enable-tcl --enable-memsys5 --enable-rtree
-make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1 
+make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1
 make %{?_smp_mflags} V=1 VERBOSE=1
 
 pushd ../build32/
-export CFLAGS="-g -O2 -fuse-linker-plugin -pipe"
-export CXXFLAGS="-g -O2 -fuse-linker-plugin -fvisibility-inlines-hidden -pipe"
-export LDFLAGS="-g -O2 -fuse-linker-plugin -pipe"
+export CFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -pipe -fPIC -m32 -mstackrealign -march=native -mtune=native"
+export CXXFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -fvisibility-inlines-hidden -pipe -fPIC -m32 -mstackrealign -march=native -mtune=native"
+export LDFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -pipe -fPIC -m32 -mstackrealign -march=native -mtune=native"
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -208,14 +209,14 @@ export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
 export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
-sed -i '/^AC_INIT.*/a AM_MAINTAINER_MODE([disable])' configure.ac
+sd --flags mi '^AC_INIT\((.*\n.*\)|.*\))' '$0\nAM_MAINTAINER_MODE([disable])' configure.ac
 %reconfigure  --enable-shared --enable-static --disable-tcl --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
-make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1 
+make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1
 make %{?_smp_mflags} V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1602689676
+export SOURCE_DATE_EPOCH=1610600327
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

@@ -1,0 +1,2 @@
+mkdir -p %{buildroot}/usr/src/sqlite3
+cp /builddir/build/BUILD/sqlite-autoconf/sqlite3.c %{buildroot}/usr/src/sqlite3/

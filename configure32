@@ -1,1 +1,1 @@
---enable-shared --enable-static --disable-tcl
+--enable-shared --enable-static --enable-static-shell --enable-readline --enable-editline --disable-tcl

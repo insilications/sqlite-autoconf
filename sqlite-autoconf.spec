@@ -164,11 +164,11 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1618724162
+export SOURCE_DATE_EPOCH=1618898414
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate -floop-block
-export CPPFLAGS="-DSQLITE_HAVE_ZLIB -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_MAX_WORKER_THREADS=16 -DSQLITE_DEFAULT_WORKER_THREADS=6 -DSQLITE_DEFAULT_PAGE_SIZE=4096 -DSQLITE_TEMP_STORE=2 -DSQLITE_DISABLE_DIRSYNC -DSQLITE_ENABLE_UNLOCK_NOTIFY -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768 -DSQLITE_DEFAULT_SYNCHRONOUS=1 -DSQLITE_DEFAULT_MMAP_SIZE=268435456 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_THREADSAFE=2 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_USE_ALLOCA -DSQLITE_ENABLE_MEMSYS5 -DUSE_AMALGAMATION=1 -DUSE_PREAD"
+export CPPFLAGS="-DHAVE_EDITLINE=1 -DHAVE_READLINE=1 -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_MMAP_SIZE=268435456 -DSQLITE_DEFAULT_PAGE_SIZE=4096 -DSQLITE_DEFAULT_SYNCHRONOUS=1 -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_DEFAULT_WORKER_THREADS=6 -DSQLITE_DISABLE_DIRSYNC -DSQLITE_ENABLE_BYTECODE_VTAB -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_ENABLE_DESERIALIZE -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_ENABLE_MEMSYS5 -DSQLITE_ENABLE_OFFSET_SQL_FUNC -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_UNKNOWN_SQL_FUNCTION -DSQLITE_ENABLE_UNLOCK_NOTIFY -DSQLITE_HAVE_ZLIB -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_DEFAULT_PAGE_SIZE=32768 -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_MAX_WORKER_THREADS=16 -DSQLITE_TEMP_STORE=2 -DSQLITE_THREADSAFE=2 -DSQLITE_USE_ALLOCA -DUSE_AMALGAMATION=1 -DUSE_PREAD"
 export PGO_GEN="-fprofile-generate=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo -fprofile-abs-path -fprofile-update=atomic -fprofile-arcs -ftest-coverage --coverage -fprofile-correction -fprofile-partial-training"
 export CFLAGS_GENERATE="-g -O3 --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fno-math-errno -fomit-frame-pointer -pthread -static-libgcc $PGO_GEN $CPPFLAGS"
 export FCFLAGS_GENERATE="-g -O3 --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fno-math-errno -fomit-frame-pointer -pthread -static-libgcc $PGO_GEN $CPPFLAGS"
@@ -220,21 +220,21 @@ make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1
 make %{?_smp_mflags} V=1 VERBOSE=1
 
 #make -j1 test || :
-make -j1 quicktest || :
-sh tool/run-speed-test.sh trunk1 || :
-sh tool/run-speed-test.sh trunk2 --wal || :
-sh tool/speed-check.sh trunk3 || :
-sh tool/speed-check.sh trunk4 --repeat 30 || :
-sh tool/speed-check.sh trunk5 --singlethread || :
-sh tool/speed-check.sh trunk6 --multithread --threads 16 || :
-sh tool/speed-check.sh trunk7 --multithread --threads 16 --main || :
-sh tool/speed-check.sh trunk8 --multithread --threads 16 --cte || :
-sh tool/speed-check.sh trunk9 --multithread --threads 16 --rtree || :
-sh tool/speed-check.sh trunk10 --multithread --threads 16 --orm || :
-sh tool/speed-check.sh trunk11 --multithread --threads 16 --fp || :
-sh tool/speed-check.sh trunk12 --multithread --threads 16 --wal || :
-sh tool/speed-check.sh trunk13 --multithread --threads 16 --main --wal || :
-sh tool/kvtest-speed.sh trunk14 || :
+#make -j1 quicktest || :
+# sh tool/run-speed-test.sh trunk1 || :
+# sh tool/run-speed-test.sh trunk2 --wal || :
+# sh tool/speed-check.sh trunk3 || :
+# sh tool/speed-check.sh trunk4 --repeat 30 || :
+# sh tool/speed-check.sh trunk5 --singlethread || :
+# sh tool/speed-check.sh trunk6 --multithread --threads 16 || :
+# sh tool/speed-check.sh trunk7 --multithread --threads 16 --main || :
+# sh tool/speed-check.sh trunk8 --multithread --threads 16 --cte || :
+# sh tool/speed-check.sh trunk9 --multithread --threads 16 --rtree || :
+# sh tool/speed-check.sh trunk10 --multithread --threads 16 --orm || :
+# sh tool/speed-check.sh trunk11 --multithread --threads 16 --fp || :
+# sh tool/speed-check.sh trunk12 --multithread --threads 16 --wal || :
+# sh tool/speed-check.sh trunk13 --multithread --threads 16 --main --wal || :
+sh tool/kvtest-speed.sh trunk1 || :
 make clean
 export CFLAGS="${CFLAGS_USE}"
 export CXXFLAGS="${CXXFLAGS_USE}"
@@ -265,7 +265,7 @@ make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1618724162
+export SOURCE_DATE_EPOCH=1618898414
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

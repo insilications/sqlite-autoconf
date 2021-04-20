@@ -1,16 +1,16 @@
 #make -j1 test || :
-make -j1 quicktest || :
-sh tool/run-speed-test.sh trunk1 || :
-sh tool/run-speed-test.sh trunk2 --wal || :
-sh tool/speed-check.sh trunk3 || :
-sh tool/speed-check.sh trunk4 --repeat 30 || :
-sh tool/speed-check.sh trunk5 --singlethread || :
-sh tool/speed-check.sh trunk6 --multithread --threads 16 || :
-sh tool/speed-check.sh trunk7 --multithread --threads 16 --main || :
-sh tool/speed-check.sh trunk8 --multithread --threads 16 --cte || :
-sh tool/speed-check.sh trunk9 --multithread --threads 16 --rtree || :
-sh tool/speed-check.sh trunk10 --multithread --threads 16 --orm || :
-sh tool/speed-check.sh trunk11 --multithread --threads 16 --fp || :
-sh tool/speed-check.sh trunk12 --multithread --threads 16 --wal || :
-sh tool/speed-check.sh trunk13 --multithread --threads 16 --main --wal || :
-sh tool/kvtest-speed.sh trunk14 || :
+#make -j1 quicktest || :
+# sh tool/run-speed-test.sh trunk1 || :
+# sh tool/run-speed-test.sh trunk2 --wal || :
+# sh tool/speed-check.sh trunk3 || :
+# sh tool/speed-check.sh trunk4 --repeat 30 || :
+# sh tool/speed-check.sh trunk5 --singlethread || :
+# sh tool/speed-check.sh trunk6 --multithread --threads 16 || :
+# sh tool/speed-check.sh trunk7 --multithread --threads 16 --main || :
+# sh tool/speed-check.sh trunk8 --multithread --threads 16 --cte || :
+# sh tool/speed-check.sh trunk9 --multithread --threads 16 --rtree || :
+# sh tool/speed-check.sh trunk10 --multithread --threads 16 --orm || :
+# sh tool/speed-check.sh trunk11 --multithread --threads 16 --fp || :
+# sh tool/speed-check.sh trunk12 --multithread --threads 16 --wal || :
+# sh tool/speed-check.sh trunk13 --multithread --threads 16 --main --wal || :
+sh tool/kvtest-speed.sh trunk1 || :

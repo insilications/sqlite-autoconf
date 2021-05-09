@@ -17,7 +17,6 @@ gcc-locale
 gdb-dev
 gettext-bin
 git
-glibc-abi
 glibc-bench
 glibc-bin
 glibc-dev

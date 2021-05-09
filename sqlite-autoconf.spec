@@ -28,7 +28,6 @@ BuildRequires : gcc-locale
 BuildRequires : gdb-dev
 BuildRequires : gettext-bin
 BuildRequires : git
-BuildRequires : glibc-abi
 BuildRequires : glibc-bench
 BuildRequires : glibc-bin
 BuildRequires : glibc-dev
@@ -164,7 +163,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1618898414
+export SOURCE_DATE_EPOCH=1620533570
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate -floop-block
@@ -235,6 +234,7 @@ make %{?_smp_mflags} V=1 VERBOSE=1
 # sh tool/speed-check.sh trunk12 --multithread --threads 16 --wal || :
 # sh tool/speed-check.sh trunk13 --multithread --threads 16 --main --wal || :
 sh tool/kvtest-speed.sh trunk1 || :
+sh tool/kvtest-speed2.sh trunk1 || :
 make clean
 export CFLAGS="${CFLAGS_USE}"
 export CXXFLAGS="${CXXFLAGS_USE}"
@@ -265,15 +265,15 @@ make %{?_smp_mflags} sqlite3.c  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1618898414
+export SOURCE_DATE_EPOCH=1620533570
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
 then
-pushd %{buildroot}/usr/lib32/pkgconfig
-for i in *.pc ; do ln -s $i 32$i ; done
-popd
+    pushd %{buildroot}/usr/lib32/pkgconfig
+    for i in *.pc ; do ln -s $i 32$i ; done
+    popd
 fi
 popd
 %make_install

@@ -14,3 +14,4 @@
 # sh tool/speed-check.sh trunk12 --multithread --threads 16 --wal || :
 # sh tool/speed-check.sh trunk13 --multithread --threads 16 --main --wal || :
 sh tool/kvtest-speed.sh trunk1 || :
+sh tool/kvtest-speed2.sh trunk1 || :

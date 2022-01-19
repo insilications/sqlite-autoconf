@@ -1,0 +1,3 @@
+sd "\-lreadline\b" -- "-Wl,--whole-archive,--as-needed,--allow-multiple-definition,/usr/lib64/libreadline.a,/usr/lib64/libtinfow.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive" $(fd -uu --glob Makefile)
+sd "\-ledit\b" -- "-Wl,--whole-archive,--as-needed,--allow-multiple-definition,/usr/lib64/libreadline.a,/usr/lib64/libtinfow.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive" $(fd -uu --glob Makefile)
+sd "\-lz\b" -- "-Wl,--whole-archive,--as-needed,--allow-multiple-definition,/usr/lib64/libz.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive" $(fd -uu --glob Makefile)

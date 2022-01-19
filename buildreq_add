@@ -17,7 +17,6 @@ gcc-locale
 gdb-dev
 gettext-bin
 git
-glibc-bench
 glibc-bin
 glibc-dev
 glibc-dev32
@@ -51,6 +50,7 @@ mpc-dev
 mpfr-dev
 ncurses-dev
 ncurses-dev32
+ncurses-staticdev
 pkg-config-dev
 procps-ng
 python3-dev
@@ -58,6 +58,7 @@ python3-staticdev
 readline
 readline-dev
 readline-dev32
+readline-staticdev
 tcl
 tcl-dev
 tcl-staticdev

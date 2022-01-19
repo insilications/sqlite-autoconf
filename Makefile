@@ -1,5 +1,6 @@
 PKG_NAME := sqlite-autoconf
-URL = https://github.com/insilications/sqlite-clr.git
+URL = /insilications/build/git-clr/sqlite-autoconf-clr/
 ARCHIVES = 
+ARCHIVES_GIT = 
 
 include ../common/Makefile.common

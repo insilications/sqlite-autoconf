@@ -16,20 +16,20 @@ export LD_LIBRARY_PATH="$PWD/.libs:/usr/local/nvidia/lib64:/usr/local/nvidia/lib
 ./speedtest1 --singlethread --size 200 --testset orm || :
 ./speedtest1 --singlethread --size 200 --testset fp || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset main || :
-./speedtest1 --multithread --threads  16 --size 500 --testset main --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset main || :
+./speedtest1 --multithread --threads  16 --size 300 --testset main --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset cte || :
-./speedtest1 --multithread --threads  16 --size 500 --testset cte --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset cte || :
+./speedtest1 --multithread --threads  16 --size 300 --testset cte --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset orm || :
+./speedtest1 --multithread --threads  16 --size 300 --testset orm || :
 ./speedtest1 --multithread --threads  16 --size 500 --testset orm --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset fp || :
-./speedtest1 --multithread --threads  16 --size 500 --testset fp --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset fp || :
+./speedtest1 --multithread --threads  16 --size 300 --testset fp --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset debug1 || :
-./speedtest1 --multithread --threads  16 --size 500 --testset debug1 --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset debug1 || :
+./speedtest1 --multithread --threads  16 --size 300 --testset debug1 --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
 timeout 3s ./sqlite3_analyzer || :
 timeout 3s ./sqlite3 || :

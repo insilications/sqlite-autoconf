@@ -11,9 +11,10 @@ Source0  : file:///aot/build/clearlinux/packages/sqlite-autoconf/sqlite-autoconf
 Summary  : SQL database engine
 Group    : Development/Tools
 License  : Public-Domain
+Requires: sqlite-autoconf-bin = %{version}-%{release}
+Requires: sqlite-autoconf-lib = %{version}-%{release}
 BuildRequires : automake
 BuildRequires : automake-dev
-BuildRequires : buildreq-configure
 BuildRequires : gcc
 BuildRequires : gcc-abi
 BuildRequires : gcc-dev
@@ -78,12 +79,80 @@ BuildRequires : valgrind-dev
 BuildRequires : zlib-dev
 BuildRequires : zlib-dev32
 BuildRequires : zlib-staticdev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 This directory contains an SQLite extension that implements a virtual
 table type that allows users to create, query and manipulate r-tree[1]
 data structures inside of SQLite databases. Users create, populate
 and query r-tree structures using ordinary SQL statements.
+
+%package bin
+Summary: bin components for the sqlite-autoconf package.
+Group: Binaries
+
+%description bin
+bin components for the sqlite-autoconf package.
+
+
+%package dev
+Summary: dev components for the sqlite-autoconf package.
+Group: Development
+Requires: sqlite-autoconf-lib = %{version}-%{release}
+Requires: sqlite-autoconf-bin = %{version}-%{release}
+Provides: sqlite-autoconf-devel = %{version}-%{release}
+Requires: sqlite-autoconf = %{version}-%{release}
+
+%description dev
+dev components for the sqlite-autoconf package.
+
+
+%package dev32
+Summary: dev32 components for the sqlite-autoconf package.
+Group: Default
+Requires: sqlite-autoconf-lib32 = %{version}-%{release}
+Requires: sqlite-autoconf-bin = %{version}-%{release}
+Requires: sqlite-autoconf-dev = %{version}-%{release}
+
+%description dev32
+dev32 components for the sqlite-autoconf package.
+
+
+%package lib
+Summary: lib components for the sqlite-autoconf package.
+Group: Libraries
+
+%description lib
+lib components for the sqlite-autoconf package.
+
+
+%package lib32
+Summary: lib32 components for the sqlite-autoconf package.
+Group: Default
+
+%description lib32
+lib32 components for the sqlite-autoconf package.
+
+
+%package staticdev
+Summary: staticdev components for the sqlite-autoconf package.
+Group: Default
+Requires: sqlite-autoconf-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the sqlite-autoconf package.
+
+
+%package staticdev32
+Summary: staticdev32 components for the sqlite-autoconf package.
+Group: Default
+Requires: sqlite-autoconf-dev32 = %{version}-%{release}
+
+%description staticdev32
+staticdev32 components for the sqlite-autoconf package.
+
 
 %prep
 %setup -q -n sqlite-autoconf-clr
@@ -101,7 +170,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1643086530
+export SOURCE_DATE_EPOCH=1643088669
 export GCC_IGNORE_WERROR=1
 ## altflags_pgof content
 ## pgo generate
@@ -232,20 +301,20 @@ export LD_LIBRARY_PATH="$PWD/.libs:/usr/local/nvidia/lib64:/usr/local/nvidia/lib
 ./speedtest1 --singlethread --size 200 --testset orm || :
 ./speedtest1 --singlethread --size 200 --testset fp || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset main || :
-./speedtest1 --multithread --threads  16 --size 500 --testset main --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset main || :
+./speedtest1 --multithread --threads  16 --size 300 --testset main --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset cte || :
-./speedtest1 --multithread --threads  16 --size 500 --testset cte --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset cte || :
+./speedtest1 --multithread --threads  16 --size 300 --testset cte --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset orm || :
+./speedtest1 --multithread --threads  16 --size 300 --testset orm || :
 ./speedtest1 --multithread --threads  16 --size 500 --testset orm --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset fp || :
-./speedtest1 --multithread --threads  16 --size 500 --testset fp --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset fp || :
+./speedtest1 --multithread --threads  16 --size 300 --testset fp --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset debug1 || :
-./speedtest1 --multithread --threads  16 --size 500 --testset debug1 --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset debug1 || :
+./speedtest1 --multithread --threads  16 --size 300 --testset debug1 --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
 timeout 3s ./sqlite3_analyzer || :
 timeout 3s ./sqlite3 || :
@@ -421,20 +490,20 @@ export LD_LIBRARY_PATH="$PWD/.libs:/usr/local/nvidia/lib64:/usr/local/nvidia/lib
 ./speedtest1 --singlethread --size 200 --testset orm || :
 ./speedtest1 --singlethread --size 200 --testset fp || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset main || :
-./speedtest1 --multithread --threads  16 --size 500 --testset main --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset main || :
+./speedtest1 --multithread --threads  16 --size 300 --testset main --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset cte || :
-./speedtest1 --multithread --threads  16 --size 500 --testset cte --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset cte || :
+./speedtest1 --multithread --threads  16 --size 300 --testset cte --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset orm || :
+./speedtest1 --multithread --threads  16 --size 300 --testset orm || :
 ./speedtest1 --multithread --threads  16 --size 500 --testset orm --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset fp || :
-./speedtest1 --multithread --threads  16 --size 500 --testset fp --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset fp || :
+./speedtest1 --multithread --threads  16 --size 300 --testset fp --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
-./speedtest1 --multithread --threads  16 --size 500 --testset debug1 || :
-./speedtest1 --multithread --threads  16 --size 500 --testset debug1 --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
+./speedtest1 --multithread --threads  16 --size 300 --testset debug1 || :
+./speedtest1 --multithread --threads  16 --size 300 --testset debug1 --autovacuum --checkpoint --verify --nosync --strict --without-rowid || :
 #
 timeout 3s ./sqlite3_analyzer || :
 timeout 3s ./sqlite3 || :
@@ -510,7 +579,7 @@ make -j16 sqlite3.c  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1643086530
+export SOURCE_DATE_EPOCH=1643088669
 rm -rf %{buildroot}
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -712,8 +781,48 @@ export LIBS="${LIBS_USE}"
 %make_install
 ## install_append content
 mkdir -p %{buildroot}/usr/src/sqlite3
-cp /builddir/build/BUILD/sqlite-autoconf/sqlite3.c %{buildroot}/usr/src/sqlite3/
+cp /builddir/build/BUILD/sqlite-autoconf-clr/sqlite3.c %{buildroot}/usr/src/sqlite3/
 ## install_append end
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/sqlite3
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/sqlite3.h
+/usr/include/sqlite3ext.h
+/usr/lib/tcl8.6/sqlite3/libtclsqlite3.so
+/usr/lib/tcl8.6/sqlite3/pkgIndex.tcl
+/usr/lib64/libsqlite3.la
+/usr/lib64/libsqlite3.so
+/usr/lib64/pkgconfig/sqlite3.pc
+/usr/src/sqlite3/sqlite3.c
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libsqlite3.la
+/usr/lib32/libsqlite3.so
+/usr/lib32/pkgconfig/32sqlite3.pc
+/usr/lib32/pkgconfig/sqlite3.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libsqlite3.so.0
+/usr/lib64/libsqlite3.so.0.8.6
+
+%files lib32
+%defattr(-,root,root,-)
+/usr/lib32/libsqlite3.so.0
+/usr/lib32/libsqlite3.so.0.8.6
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libsqlite3.a
+
+%files staticdev32
+%defattr(-,root,root,-)
+/usr/lib32/libsqlite3.a
